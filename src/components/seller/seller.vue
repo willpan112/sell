@@ -3,7 +3,7 @@
     <div class="seller-content">
       <div class="overview">
         <h1 class="title">{{seller.name}}</h1>
-        <div class="desc">
+        <div class="desc border-1px">
           <star :size="36" :score="seller.score"></star>
           <span class="text">({{seller.ratingCount}})</span>
           <span class="text">月售{{seller.sellCount}}单</span>
@@ -40,7 +40,7 @@
           <p class="content">{{seller.bulletin}}</p>
         </div>
         <ul v-if="seller.supports" class="supports">
-          <li class="support-item border-1px" v-for="(item, index) in seller.supports">
+          <li class="support-item border-1px" v-for="(item,index) in seller.supports">
             <span class="icon" :class="classMap[seller.supports[index].type]"></span>
             <span class="text">{{seller.supports[index].description}}</span>
           </li>
@@ -70,9 +70,9 @@
 
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
-  import {saveToLocal, loadFromLocal} from '../../common/js/store';
-  import star from '../../components/star/star.vue';
-  import split from '../../components/split/split.vue';
+  import {saveToLocal, loadFromLocal} from 'common/js/store';
+  import star from 'components/star/star';
+  import split from 'components/split/split';
 
   export default {
     props: {
@@ -110,7 +110,7 @@
       });
     },
     methods: {
-      toggleFavorite() {
+      toggleFavorite(event) {
         if (!event._constructed) {
           return;
         }
@@ -129,7 +129,7 @@
       _initPics() {
         if (this.seller.pics) {
           let picWidth = 120;
-          let margin = 60;
+          let margin = 6;
           let width = (picWidth + margin) * this.seller.pics.length - margin;
           this.$refs.picList.style.width = width + 'px';
           this.$nextTick(() => {
@@ -205,7 +205,6 @@
             color: rgb(7, 17, 27)
             .stress
               font-size: 24px
-
       .favorite
         position: absolute
         width: 50px
@@ -220,7 +219,10 @@
           color: #d4d6d9
           &.active
             color: rgb(240, 20, 20)
-
+        .text
+          line-height: 10px
+          font-size: 10px
+          color: rgb(77, 85, 93)
     .bulletin
       padding: 18px 18px 0 18px
       .title
